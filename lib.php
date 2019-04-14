@@ -57,15 +57,22 @@ class VKCoinClient {
 	 * @param int $sum Сумма перевода
 	 * @param int $payload Полезная нагрузка. Если равно нулю, то будет сгенерировано рандомное число
 	 * @param bool $fixed_sum Фиксированная сумма, по умолчанию true
+	 * @param bool $use_hex_link Генерировать ссылку с hex-параметрами или нет
 	 */
-	public function generatePayLink(int $sum, int $payload = 0, bool $fixed_sum = true) {
+	public function generatePayLink(int $sum, int $payload = 0, bool $fixed_sum = true, bool $use_hex_link = true) {
 		$payload = $payload == 0 ? rand(-2000000000, 2000000000) : $payload;
 
-		$merchant_id = dechex($this->merchant_id);
-		$sum = dechex($sum);
-		$payload = dechex($payload);
+		if($use_hex_link) {
+			$merchant_id = dechex($this->merchant_id);
+			$sum = dechex($sum);
+			$payload = dechex($payload);
 
-		$link = "vk.com/coin#m{$merchant_id}_{$sum}_{$payload}".($fixed_sum ? "" : "_1");
+			$link = "vk.com/coin#m{$merchant_id}_{$sum}_{$payload}".($fixed_sum ? "" : "_1");
+		} else {
+			$merchant_id = $this->merchant_id;
+
+			$link = "vk.com/coin#x{$merchant_id}_{$sum}_{$payload}".($fixed_sum ? "" : "_1");
+		}
 
 		return $link;
 	}
