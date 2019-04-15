@@ -101,7 +101,8 @@ class VKCoinClient
         if ($err) {
             return array('status' => false, 'error' => $err);
         } else {
-            return array('status' => true, 'response' => json_decode($response, true));
+            $response = json_decode($response, true);
+            return array('status' => true, 'response' => isset($response['response']) ? $response['response'] : $response);
         }
     }
 
