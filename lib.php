@@ -30,27 +30,29 @@ class VKCoinClient {
 	 * @return array | bool
 	 */
 	private function request(string $method, string $body) {
-		$ch = curl_init();
-		curl_setopt_array($ch, array(
-			CURLOPT_URL => self::API_HOST.'/'.$method.'/',
-			CURLOPT_SSL_VERIFYPEER => false,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_POST => true,
-			CURLOPT_POSTFIELDS => $body,
-			CURLOPT_HTTPHEADER => array('Content-Type: application/json')
-		));
+		if(extension_loaded('curl')) {
+			$ch = curl_init();
+			curl_setopt_array($ch, array(
+				CURLOPT_URL => self::API_HOST.'/'.$method.'/',
+				CURLOPT_SSL_VERIFYPEER => false,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_POST => true,
+				CURLOPT_POSTFIELDS => $body,
+				CURLOPT_HTTPHEADER => array('Content-Type: application/json')
+			));
 
-		$response = curl_exec($ch);
-		$err = curl_error($ch);
+			$response = curl_exec($ch);
+			$err = curl_error($ch);
 
-		curl_close($ch);
+			curl_close($ch);
 
-		if($err) {
-			return array('status' => false, 'error' => $err);
-		} else {
-			$response = json_decode($response, true);
-			return array('status' => true, 'response' => isset($response['response']) ? $response['response'] : $response);
+			if($err) {
+				return array('status' => false, 'error' => $err);
+			} else {
+				$response = json_decode($response, true);
+				return array('status' => true, 'response' => isset($response['response']) ? $response['response'] : $response);
+			}
 		}
 
 		return false;
