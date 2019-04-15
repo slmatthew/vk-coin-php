@@ -132,6 +132,21 @@ class VKCoinClient {
 
 		return $this->request('send', json_encode($params, JSON_UNESCAPED_UNICODE)); 
 	}
+
+	/**
+	 * Получение баланса
+	 * 
+	 * @param array $user_ids ID пользователей
+	 */
+	public function getBalance(array $user_ids) {
+		$params = array();
+
+		$params['merchantId'] = $this->merchant_id;
+		$params['key'] = $this->apikey;
+		$params['userIds'] = $user_ids;
+
+		return $this->request('score', json_encode($params, JSON_UNESCAPED_UNICODE));
+	}
 }
 
 ?>
