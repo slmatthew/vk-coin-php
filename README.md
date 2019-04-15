@@ -48,6 +48,17 @@ $vkcoin->getTransactions(1, 200);
 | tx_type      | int    | no            | Описано в [документации](https://vk.com/@hs-marchant-api?anchor=poluchenie-spiska-tranzaktsy) |
 | last_tx      | int    | no            | Номер последней транзакции                                                                    |
 
+## ППолучение баланса
+Пример:
+```php
+$vkcoin->getBalance(array(2050, 54986442));
+$vkcoin->getBalance([1, 2]);
+```
+
+| Параметр     | Тип    | Обязательный? | Описание                                                                            |
+|--------------|--------|---------------|-------------------------------------------------------------------------------------|
+| user_ids     | array  | **yes**       | Описано в [документации](https://vk.com/@hs-marchant-api?anchor=poluchenie-balansa) |
+
 ## Перевод
 Пример:
 ```php
