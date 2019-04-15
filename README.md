@@ -36,7 +36,7 @@ if($result['status']) {
 
 Пример:
 ```php
-include './lib.php';
+include "../vendor/autoload.php";
 
 $vkcoin = new VKCoinClient(305360617, 'cNwFTVP7Y33M5TxgZMhLQmdcNrb6qu72mNCTeRdX9PVEqbJPpe');
 ```
