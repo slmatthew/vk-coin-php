@@ -1,17 +1,25 @@
 {
-    "name": "slmatthew/vk-coin",
-    "description": "VK Coin API",
-    "keywords": ["vk", "coin"],
-    "type": "library",
-    "homepage": "https://github.com/slmatthew/vk-coin-php",
-    "license": "MIT",
-    "require": {
-        "php": ">=5.5.5"
+  "name": "slmatthew/vk-coin-php",
+  "description": "Library for VK Coin API.",
+  "keywords": ["VKCOIN","COIN","VK API","VK COIN API"],
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "VkCoin\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Matvey Vishnevsky"
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/slmatthew/vk-coin-php"
-        }
-    ]
+    {
+      "name": "Nazym Bavbekov",
+      "email": "naz.bav@list.ru"
+    }
+  ],
+  "require": {
+    "ext-curl":"*",
+    "ext-json":"*"
+  }
 }
