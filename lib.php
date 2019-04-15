@@ -24,6 +24,10 @@ class VKCoinClient {
 
 	/**
 	 * Функция request, используется для запросов к API
+	 * 
+	 * @param string $method
+	 * @param string $body
+	 * @return array | bool
 	 */
 	private function request(string $method, string $body) {
 		$ch = curl_init();
@@ -59,6 +63,7 @@ class VKCoinClient {
 	 * @param int $payload Полезная нагрузка. Если равно нулю, то будет сгенерировано рандомное число
 	 * @param bool $fixed_sum Фиксированная сумма, по умолчанию true
 	 * @param bool $use_hex_link Генерировать ссылку с hex-параметрами или нет
+	 * @return string
 	 */
 	public function generatePayLink(int $sum, int $payload = null, bool $fixed_sum = null, bool $use_hex_link = null) {
 		/** Поддержка старых версий PHP **/
