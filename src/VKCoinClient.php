@@ -142,7 +142,7 @@ class VKCoinClient
     {
         if (is_array($response)) {
             if ($response['status'] == false && isset($response['error'])) {
-                var_dump($response);
+              //  var_dump($response);//Галя, харе тестит чебуреки там на кухне!
                 switch ($response['error']['code']) {
                     case 422:
                         $error = $this->language['responseParamError'];
