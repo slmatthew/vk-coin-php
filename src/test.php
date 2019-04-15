@@ -8,8 +8,6 @@
 
 use VkCoin\VKCoinClient;
 
-define("VK_COIN_ENDPOINT", "https://coin-without-bugs.vkforms.ru/merchant/");
-
 include "../vendor/autoload.php";
 
 try {
