@@ -65,6 +65,8 @@ $vkcoin->getTransactions(1, 200);
 | tx_type      | int    | no            | Описано в [документации](https://vk.com/@hs-marchant-api?anchor=poluchenie-spiska-tranzaktsy) |
 | last_tx      | int    | no            | Номер последней транзакции                                                                    |
 
+Если Вам нужно получить все транзакции **на текущий аккаунт**, используйте `$vkcoin->getTransactions(2);`. Если необходимо получить только транзакции по ссылкам, то следует использовать `$vkcoin->getTransactions();`.
+
 ## Перевод
 Пример:
 ```php
