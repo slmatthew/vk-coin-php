@@ -107,7 +107,7 @@ class VKCoinClient {
 		if($tx_type === null) {
 			$tx_type = 1;
 		}
-		if($tx_type === null) {
+		if($last_tx === null) {
 			$last_tx = -1;
 		}
 
