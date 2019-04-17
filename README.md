@@ -40,6 +40,8 @@ if($result === false) {
 
 
 ## Инициализация
+**Важно:** если версия PHP, которую Вы используете, меньше `7.0.0`, нужно использовать [lib-5.6.php](https://github.com/slmatthew/vk-coin-php/blob/master/lib-5.6.php). В ином случае используйте [обычную версию](https://github.com/slmatthew/vk-coin-php/blob/master/lib.php).
+
 Пример:
 ```php
 include './lib.php';
