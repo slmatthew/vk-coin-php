@@ -1,13 +1,12 @@
 <?php
 
 /**
- * VKCoinClient
+ * VKCoinClient (for old PHP versions)
  * @author slmatthew (Matvey Vishnevsky)
- * @version 1.0.1
  */
 class VKCoinClient {
 
-	protected const API_HOST = 'https://coin-without-bugs.vkforms.ru/merchant';
+	const API_HOST = 'https://coin-without-bugs.vkforms.ru/merchant';
 
 	private $apikey = "";
 	private $merchant_id = 0;
@@ -18,11 +17,7 @@ class VKCoinClient {
 	 * @param int $merchant_id ID пользователя, для которого получен платёжный ключ
 	 * @param string $apikey Платёжный ключ
 	 */
-	public function __construct(int $merchant_id, string $apikey) {
-		if(version_compare('7.0.0', phpversion()) === 1) {
-			die('Ваша версия не поддерживает эту версию библиотеки, используйте lib-5.6.php');
-		}
-
+	public function __construct($merchant_id, $apikey) {
 		$this->merchant_id = $merchant_id;
 		$this->apikey = $apikey;
 	}
@@ -34,18 +29,18 @@ class VKCoinClient {
 	 * @param string $body
 	 * @return array | bool
 	 */
-	private function request(string $method, string $body) {
+	private function request($method, $body) {
 		if(extension_loaded('curl')) {
 			$ch = curl_init();
-			curl_setopt_array($ch, [
+			curl_setopt_array($ch, array(
 				CURLOPT_URL => self::API_HOST.'/'.$method.'/',
 				CURLOPT_SSL_VERIFYPEER => false,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_POST => true,
 				CURLOPT_POSTFIELDS => $body,
-				CURLOPT_HTTPHEADER => ['Content-Type: application/json']
-			]);
+				CURLOPT_HTTPHEADER => array('Content-Type: application/json')
+			));
 
 			$response = curl_exec($ch);
 			$err = curl_error($ch);
@@ -53,10 +48,10 @@ class VKCoinClient {
 			curl_close($ch);
 
 			if($err) {
-				return ['status' => false, 'error' => $err];
+				return array('status' => false, 'error' => $err);
 			} else {
 				$response = json_decode($response, true);
-				return ['status' => true, 'response' => isset($response['response']) ? $response['response'] : $response];
+				return array('status' => true, 'response' => isset($response['response']) ? $response['response'] : $response);
 			}
 		}
 
@@ -72,7 +67,18 @@ class VKCoinClient {
 	 * @param bool $use_hex_link Генерировать ссылку с hex-параметрами или нет
 	 * @return string
 	 */
-	public function generatePayLink(int $sum, int $payload = 0, bool $fixed_sum = true, bool $use_hex_link = true) {
+	public function generatePayLink($sum, $payload = null, $fixed_sum = null, $use_hex_link = null) {
+		/** Поддержка старых версий PHP **/
+		if($payload === null) {
+			$payload = 0;
+		}
+		if($fixed_sum === null) {
+			$fixed_sum = true;
+		}
+		if($use_hex_link === null) {
+			$use_hex_link = true;
+		}
+
 		$payload = $payload == 0 ? rand(-2000000000, 2000000000) : $payload;
 
 		if($use_hex_link) {
@@ -96,12 +102,20 @@ class VKCoinClient {
 	 * @param int $tx_type Документация: https://vk.com/@hs-marchant-api?anchor=poluchenie-spiska-tranzaktsy
 	 * @param int $last_tx Номер последней транзакции, всё описано в документации. По умолчанию не включён в запрос
 	 */
-	public function getTransactions(int $tx_type = 1, int $last_tx = -1) {
-		$params = [];
+	public function getTransactions($tx_type = null, $last_tx = null) {
+		/** Поддержка старых версий PHP **/
+		if($tx_type === null) {
+			$tx_type = 1;
+		}
+		if($last_tx === null) {
+			$last_tx = -1;
+		}
+
+		$params = array();
 
 		$params['merchantId'] = $this->merchant_id;
 		$params['key'] = $this->apikey;
-		$params['tx'] = [$tx_type];
+		$params['tx'] = array($tx_type);
 
 		if($last_tx != -1) {
 			$params['lastTx'] = $last_tx;
@@ -116,8 +130,8 @@ class VKCoinClient {
 	 * @param int $to_id ID пользователя, которому будет отправлен перевод
 	 * @param int $amount Сумма перевода в тысячных долях (если укажите 15, то придёт 0,015 коина)
 	 */
-	public function sendTransfer(int $to_id, int $amount) {
-		$params = [];
+	public function sendTransfer($to_id, $amount) {
+		$params = array();
 
 		$params['merchantId'] = $this->merchant_id;
 		$params['key'] = $this->apikey;
@@ -137,7 +151,7 @@ class VKCoinClient {
 			$user_ids = [$this->merchant_id];
 		}
 
-		$params = [];
+		$params = array();
 
 		$params['merchantId'] = $this->merchant_id;
 		$params['key'] = $this->apikey;
