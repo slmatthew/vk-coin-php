@@ -145,6 +145,62 @@ class VKCoinClient {
 
 		return $this->request('score', json_encode($params, JSON_UNESCAPED_UNICODE));
 	}
+
+	/**
+	 * Изменение названия магазина
+	 * 
+	 * @param string $name Название магазина
+	 */
+	public function changeName(string $name) {
+		$params = [];
+
+		$params['name'] = $name;
+		$params['merchantId'] = $this->merchant_id;
+		$params['key'] = $this->apikey;
+
+		return $this->request('set', json_encode($params, JSON_UNESCAPED_UNICODE));
+	}
+
+	/**
+	 * Добавление Callback API сервера
+	 * 
+	 * @param string $url Адрес
+	 */
+	public function changeName(string $url) {
+		$params = [];
+
+		$params['callback'] = $url;
+		$params['merchantId'] = $this->merchant_id;
+		$params['key'] = $this->apikey;
+
+		return $this->request('set', json_encode($params, JSON_UNESCAPED_UNICODE));
+	}
+
+	/**
+	 * Удаление Callback API сервера
+	 */
+	public function changeName() {
+		$params = [];
+
+		$params['callback'] = null;
+		$params['merchantId'] = $this->merchant_id;
+		$params['key'] = $this->apikey;
+
+		return $this->request('set', json_encode($params, JSON_UNESCAPED_UNICODE));
+	}
+
+	/**
+	 * Получение логов неудачных запросов
+	 */
+	public function getCallbackLogs() {
+		$params = [];
+
+		$params['status'] = 1;
+		$params['merchantId'] = $this->merchant_id;
+		$params['key'] = $this->apikey;
+
+		return $this->request('set', json_encode($params, JSON_UNESCAPED_UNICODE));
+	}
 }
 
 ?>
