@@ -132,7 +132,7 @@ class VKCoinClient {
 	 * 
 	 * @param array $user_ids ID пользователей
 	 */
-	public function getBalance(array $user_ids = [null]) {
+	public function getBalance(array $user_ids = []) {
 		if(empty($user_ids)) {
 			$user_ids = [$this->merchant_id];
 		}
