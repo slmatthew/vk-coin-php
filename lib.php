@@ -3,7 +3,7 @@
 /**
  * VKCoinClient
  * @author slmatthew (Matvey Vishnevsky)
- * @version 1.0.1
+ * @version 1.0.2
  */
 class VKCoinClient {
 
