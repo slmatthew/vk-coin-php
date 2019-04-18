@@ -166,7 +166,7 @@ class VKCoinClient {
 	 * 
 	 * @param string $url Адрес
 	 */
-	public function changeName(string $url) {
+	public function addWebhook(string $url) {
 		$params = [];
 
 		$params['callback'] = $url;
@@ -179,7 +179,7 @@ class VKCoinClient {
 	/**
 	 * Удаление Callback API сервера
 	 */
-	public function changeName() {
+	public function deleteWebhook() {
 		$params = [];
 
 		$params['callback'] = null;
