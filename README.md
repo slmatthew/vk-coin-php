@@ -1,7 +1,9 @@
 # VK Coin PHP
 Библиотека для работы с VK Coin API.
 
-Если если хотите посоветоваться с другими разработчиками — жду вас в [беседе](https://vk.me/join/AJQ1dwNDYA/Cd7WMXvOhbzA8).
+[![VK Coin PHP](https://img.shields.io/badge/VK%20Coin%20PHP-1.1-purple.svg?style=flat-square)](https://github.com/slmatthew/vk-coin-php)
+[![PHP](https://img.shields.io/badge/php->=5.6-blue.svg?style=flat-square)](https://php.net/)
+[![Беседа](https://img.shields.io/badge/Беседа-VK-yellow.svg?style=flat-square)](https://vk.me/join/AJQ1dwNDYA/Cd7WMXvOhbzA8)
 
 ## Формат ответа
 При вызове функции `getTransactions()` или `sendTransfer()` возвращается массив с двумя полями, либо false.
@@ -139,3 +141,14 @@ $vkcoin->deleteWebhook();
 ```php
 $vkcoin->getWebhookLogs();
 ```
+
+### Проверить подлинность запроса
+Пример:
+```php
+$data = json_decode(file_get_contents('php://input'), true);
+echo $vkcoin->isKeyValid($data) ? 'Запрос подлинный.' : 'мамкин хакер!';
+```
+
+| Параметр | Тип   | Обязательный? | Описание                                                                                   |
+|----------|-------|---------------|--------------------------------------------------------------------------------------------|
+| params   | array | **yes**       | Данные запроса, декодированные через `json_decode(file_get_contents('php://input'), true)` |

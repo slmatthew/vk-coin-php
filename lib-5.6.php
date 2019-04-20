@@ -3,7 +3,7 @@
 /**
  * VKCoinClient (for old PHP versions)
  * @author slmatthew (Matvey Vishnevsky)
- * @version 1.0.2
+ * @version 1.1
  */
 class VKCoinClient {
 
@@ -215,6 +215,20 @@ class VKCoinClient {
 		$params['key'] = $this->apikey;
 
 		return $this->request('set', json_encode($params, JSON_UNESCAPED_UNICODE));
+	}
+
+	/**
+	 * Проверка подлинности ключа
+	 * 
+	 * @param array $params Данные запроса, декодированные через json_decode(file_get_contents('php://input'), true)
+	 */
+	public function isKeyValid(array $params) {
+		if(isset($params['id']) && isset($params['from_id']) && isset($params['amount']) && isset($params['payload']) && isset($params['key'])) {
+			$key = md5(implode(';', array($params['id'], $params['from_id'], $params['amount'], $params['payload'], $this->apikey)));
+			return $key === $params['key'];
+		}
+
+		return false;
 	}
 }
 
