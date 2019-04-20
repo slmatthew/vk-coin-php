@@ -134,7 +134,7 @@ $vkcoin->addWebhook('http://my-super-host.com/callback/');
 $vkcoin->deleteWebhook();
 ```
 
-### Получить логи неудачных забросов
+### Получить логи неудачных запросов
 Пример:
 ```php
 $vkcoin->getWebhookLogs();
