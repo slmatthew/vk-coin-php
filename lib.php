@@ -115,14 +115,16 @@ class VKCoinClient {
 	 * 
 	 * @param int $to_id ID пользователя, которому будет отправлен перевод
 	 * @param int $amount Сумма перевода в тысячных долях (если укажите 15, то придёт 0,015 коина)
+	 * @param bool $mark_as_merchant Отправить перевод от имени магазина или нет
 	 */
-	public function sendTransfer(int $to_id, int $amount) {
+	public function sendTransfer(int $to_id, int $amount, bool $mark_as_merchant = true) {
 		$params = [];
 
 		$params['merchantId'] = $this->merchant_id;
 		$params['key'] = $this->apikey;
 		$params['toId'] = $to_id;
 		$params['amount'] = $amount;
+		$params['markAsMerchant'] = $mark_as_merchant;
 
 		return $this->request('send', json_encode($params, JSON_UNESCAPED_UNICODE)); 
 	}
