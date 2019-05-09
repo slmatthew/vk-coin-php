@@ -3,7 +3,7 @@
 /**
  * VKCoinClient (for old PHP versions)
  * @author slmatthew (Matvey Vishnevsky)
- * @version 1.1
+ * @version 1.2
  */
 class VKCoinClient {
 
@@ -228,10 +228,21 @@ class VKCoinClient {
 	 * 
 	 * @param array $params Данные запроса, декодированные через json_decode(file_get_contents('php://input'), true)
 	 */
-	public function isKeyValid(array $params) {
-		if(isset($params['id']) && isset($params['from_id']) && isset($params['amount']) && isset($params['payload']) && isset($params['key'])) {
-			$key = md5(implode(';', array($params['id'], $params['from_id'], $params['amount'], $params['payload'], $this->apikey)));
-			return $key === $params['key'];
+	public function isKeyValid($params) {
+		if(is_array($params) || is_object($params)) {
+			$p = array();
+			if(is_object($params)) { // если объект, то превращаем его в ассоциативный массив
+				foreach($params as $key => $value) {
+					$p[$key] = $value;
+				}
+			} else {
+				$p = $params;
+			}
+
+			if(isset($p['id'], $p['from_id'], $p['amount'], $p['payload'], $p['key'])) {
+				$key = md5(implode(';', [$p['id'], $p['from_id'], $p['amount'], $p['payload'], $this->apikey]));
+				return $key === $p['key'];
+			}
 		}
 
 		return false;
